@@ -20,10 +20,15 @@ public class Dispatcher extends Thread {
 	Semaphore semaforoLlamadas;
 	PriorityQueue<Llamada> listaLlamadas;
 
-//	
-	
+    /**
+    *
+    * @param operadorList operadores disponibles
+    * @param supervisorList supervisores disponibles
+    * @param directorList directores disponibles
+    * @throws Exception
+    */
 	public Dispatcher(List<EmpleadoDirector> directorList, List<EmpleadoSupervisor> supervisorList,
-			List<EmpleadoOperador> operadorList, Queue<Llamada> pendientCalls) {
+			List<EmpleadoOperador> operadorList, Queue<Llamada> pendientCalls) throws Exception {
 		semaforoLlamadas = new Semaphore(MAX_THREADS);
 		this.directorList = directorList;
 		this.supervisorList = supervisorList;
@@ -77,20 +82,12 @@ public class Dispatcher extends Thread {
 	@Override
 	public void run() {
 		try {
-
 			while (esActivo) {
-
-				
 				mutex.acquire();
-				
-
 				if (this.pendientCalls.isEmpty() ) {
 					continue;
 				} else {
-
-					
 					semaforoLlamadas.acquire();
-
 					//Asignacion de empleado que atendera la llamada teniendo en cuenta la prioridad de asignacion
 					if (!operadorList.isEmpty() || !supervisorList.isEmpty() || !directorList.isEmpty()) {
 						Llamada llamada = pendientCalls.remove();
@@ -117,8 +114,6 @@ public class Dispatcher extends Thread {
 						}
 
 					} else {
-
-						
 						semaforoLlamadas.release();
 					}
 				}

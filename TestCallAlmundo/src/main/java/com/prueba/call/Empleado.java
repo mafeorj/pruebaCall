@@ -32,7 +32,6 @@ public abstract class Empleado implements Runnable {
 			Thread.sleep(duracionLlamada);
 			llamada.setDuracionLlamada(duracionLlamada / 1000);
 			this.finalizarllamada();
-
 			if (this instanceof EmpleadoOperador)
 				EmpleadoOperador.operadorList.add((EmpleadoOperador) this);
 			else if (this instanceof EmpleadoSupervisor)

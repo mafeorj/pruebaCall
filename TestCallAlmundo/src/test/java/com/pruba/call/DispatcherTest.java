@@ -16,7 +16,7 @@ import com.prueba.call.Llamada;
 public class DispatcherTest {
 	
     @Test
-    public void testDiezLLamadas() {
+    public void testDiezLLamadas() throws Exception {
 	EmpleadoDirector.directorList = new ArrayList<EmpleadoDirector>();
 	EmpleadoSupervisor.supervisorList = new ArrayList<EmpleadoSupervisor>();
 	EmpleadoOperador.operadorList = new ArrayList<EmpleadoOperador>();
@@ -40,7 +40,7 @@ public class DispatcherTest {
     }
 	
     @Test(expected = NullPointerException.class)
-    public void testDispatcherCreationWithNullStrategy() {
+    public void testDispatcherCreationWithNullStrategy() throws Exception {
         new Dispatcher(null, null, null, null).dispatchCall();;
   
     }
